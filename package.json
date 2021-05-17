@@ -1,0 +1,19 @@
+{
+  "name": "smashtube",
+  "version": "1.0.0",
+  "description": "smashtube with VanillaJS and NodeJS",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Narastro/smashtube.git"
+  },
+  "author": "Narastro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Narastro/smashtube/issues"
+  },
+  "homepage": "https://github.com/Narastro/smashtube#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
