@@ -21,7 +21,7 @@
   },
   "scripts": {
     "dev": "nodemon --exec babel-node src/server.js --delay 2",
-    "test": "nodemon --exec babel-node src/test.js --delay 2"
+    "test": "nodemon --exec babel-node src/test.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",

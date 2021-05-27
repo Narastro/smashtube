@@ -1,19 +1,30 @@
+"use strict";
 import express from "express";
+import logger from "morgan";
+import globalRouter from "./router/globalRouter";
+import userRouter from "./router/userRouter";
+import videoRouter from "./router/videoRouter";
 
 const app = express();
 
 const PORT = 4000;
 
-const goMiddleware = (req, res, next) => {
-  console.log(`Someone is going to : ${req.url}`);
+const privateMiddle = (req, res, next) => {
+  const url = req.url;
+  if (url === "/protected") {
+    return res.send("<h1>Not Allowed</h1>");
+  }
   next();
 };
 
-const handleHome = (req, res) => res.send("Good!");
+app.use(privateMiddle);
+app.use(logger("dev"));
 
-app.get("/", goMiddleware, handleHome);
+app.use("/", globalRouter);
+app.use("/users", userRouter);
+app.use("/videos", videoRouter);
 
 const handleListening = () =>
-  console.log(`✅Server Listening on : http://localhost:${PORT}🚀`);
+  console.log(`✅Server Listening on : http://localhost:${PORT} 🚀`);
 
 app.listen(PORT, handleListening);
