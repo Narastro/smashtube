@@ -17,6 +17,9 @@ const privateMiddle = (req, res, next) => {
   next();
 };
 
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+
 app.use(privateMiddle);
 app.use(logger("dev"));
 
