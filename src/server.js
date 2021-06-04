@@ -1,4 +1,6 @@
 "use strict";
+import "./db";
+import Video from "./models/Video";
 import express from "express";
 import logger from "morgan";
 import globalRouter from "./router/globalRouter";
@@ -22,12 +24,13 @@ app.set("views", process.cwd() + "/src/views");
 
 app.use(privateMiddle);
 app.use(logger("dev"));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", globalRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
 const handleListening = () =>
-  console.log(`✅Server Listening on : http://localhost:${PORT} 🚀`);
+  console.log(`✅ Server Listening on : http://localhost:${PORT} 🚀`);
 
 app.listen(PORT, handleListening);

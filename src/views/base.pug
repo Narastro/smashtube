@@ -4,5 +4,22 @@ html(lang="ko")
         title #{pageTitle} | Smashtube
         link(rel="stylesheet" href="https://unpkg.com/mvp.css")
     body
-        block content
-    include partials/footer.pug
+        header
+            if fakeUser.loggedIn
+                small Hello #{fakeUser.username}
+            nav
+                ul 
+                    li
+                        a(href="/videos/upload") Upload Video
+            nav
+                ul 
+                    if fakeUser.loggedIn
+                        li
+                            a(href="/login") Logout
+                    else
+                        li
+                            a(href="/login") Login
+            h1=pageTitle 
+        main
+            block content
+    include partials/footer
