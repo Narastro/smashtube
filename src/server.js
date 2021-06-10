@@ -1,9 +1,11 @@
 "use strict";
 import express from "express";
 import logger from "morgan";
-import globalRouter from "./router/globalRouter";
+import session from "express-session";
+import rootRouter from "./router/rootRouter";
 import userRouter from "./router/userRouter";
 import videoRouter from "./router/videoRouter";
+import { localsmiddleware } from "./middlewares";
 
 const app = express();
 
@@ -22,7 +24,16 @@ app.use(privateMiddle);
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", globalRouter);
+app.use(
+  session({
+    secret: "Hello!",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(localsmiddleware);
+app.use("/", rootRouter);
 app.use("/users", userRouter);
 app.use("/videos", videoRouter);
 
