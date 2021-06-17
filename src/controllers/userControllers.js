@@ -1,8 +1,10 @@
 import User from "../models/User";
+import Video from "../models/Video";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
+
 export const postJoin = async (req, res) => {
   const { name, username, email, password, password2, location } = req.body;
   const pageTitle = "join";
@@ -66,17 +68,35 @@ export const getEdit = (req, res) => {
 };
 
 export const postEdit = async (req, res) => {
+  const pageTitle = "Edit Profile";
   const {
     session: {
-      user: { _id, avatarUrl },
+      user: { _id, avatarUrl, email: sessionEmail, username: sessionUsername },
     },
     body: { name, email, username, location },
     file,
   } = req;
+
+  const emailExists = await User.exists({ email });
+  if (sessionEmail !== email && emailExists) {
+    return res.status(400).render("edit-profile", {
+      pageTitle,
+      errorMessage: "This email is already taken.",
+    });
+  }
+
+  const userExists = await User.exists({ username });
+  if (sessionUsername !== username && userExists) {
+    return res.status(400).render("edit-profile", {
+      pageTitle,
+      errorMessage: "This username is already taken.",
+    });
+  }
+
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? `/${file.path}` : avatarUrl,
       name,
       email,
       username,
@@ -88,12 +108,22 @@ export const postEdit = async (req, res) => {
   return res.redirect("/users/edit");
 };
 
-export const remove = (req, res) => res.send("remove!");
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
-export const see = (req, res) => res.send("See!");
+
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found" });
+  }
+  return res.render("profile", {
+    pageTitle: `${user.name}의 Profile`,
+    user,
+  });
+};
 
 export const startGithubLogin = (req, res) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
@@ -149,11 +179,11 @@ export const finishGithubLogin = async (req, res) => {
     }
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
-      const user = await User.create({
+      user = await User.create({
         avatarUrl: userData.avatar_url,
         name: userData.name,
         username: userData.login,
-        email: emailData.email,
+        email: emailObj.email,
         password: "",
         socialOnly: true,
         location: userData.location,
@@ -165,4 +195,38 @@ export const finishGithubLogin = async (req, res) => {
   } else {
     return res.redirect("/login");
   }
+};
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("change-password", { pageTitle: "Change Password!" });
+};
+
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, newPassword, newPassword2 },
+    file,
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Current password is incorrect",
+    });
+  }
+  if (newPassword !== newPassword2) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "The password does not match",
+    });
+  }
+  user.password = newPassword;
+  await user.save(); // 이걸 하는 이유는 Model에서 pre save 함수를 트리거하기 위함이다
+  return res.redirect("/users/logout");
 };
