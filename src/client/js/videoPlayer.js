@@ -3,7 +3,15 @@ const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
 const time = document.getElementById("time");
 const volumeRange = document.getElementById("volume");
+const currentTime = document.getElementById("currentTime");
+const totalTime = document.getElementById("totalTime");
+const timeline = document.getElementById("timeline");
+const fulscreenBtn = document.getElementById("fulscreen");
+const videoContainer = document.getElementById("videoContainer");
+const videoControls = document.getElementById("videoControls");
 
+let controlTimeout = null;
+let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
 
@@ -38,6 +46,62 @@ const handleVolumeChange = (event) => {
   video.volume = value;
 };
 
+const formatTime = (seconds) =>
+  new Date(seconds * 1000).toISOString().substr(11, 8);
+
+const handleLoadedMetaData = () => {
+  totalTime.innerText = formatTime(Math.floor(video.duration));
+  timeline.max = Math.floor(video.duration);
+};
+
+const handleTimeUpdate = () => {
+  currentTime.innerText = formatTime(Math.floor(video.currentTime));
+  timeline.value = Math.floor(video.currentTime);
+};
+
+const handleTimelineChange = (event) => {
+  const {
+    target: { value },
+  } = event;
+  video.currentTime = value;
+};
+
+const handleFullscreen = () => {
+  const fullscreen = document.fullscreenElement;
+  if (fullscreen) {
+    document.exitFullscreen();
+    fulscreenBtn.innerText = "꽉 찬 화면";
+  } else {
+    videoContainer.requestFullscreen();
+    fulscreenBtn.innerText = "나가기";
+  }
+};
+
+const hideControls = () => videoControls.classList.remove("showing");
+
+const handleMouseMove = () => {
+  if (controlTimeout) {
+    clearTimeout(controlTimeout);
+    controlTimeout = null;
+  }
+  if (controlsMovementTimeout) {
+    clearTimeout(controlsMovementTimeout);
+    controlsMovementTimeout = null;
+  }
+  videoControls.classList.add("showing");
+  controlsMovementTimeout = setTimeout(hideControls, 3000);
+};
+
+const handleMouseLeave = () => {
+  controlTimeout = setTimeout(hideControls, 3000);
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
+video.addEventListener("loadedmetadata", handleLoadedMetaData);
+video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("mousemove", handleMouseMove);
+video.addEventListener("mouseleave", handleMouseLeave);
+timeline.addEventListener("input", handleTimelineChange);
+fulscreen.addEventListener("click", handleFullscreen);
