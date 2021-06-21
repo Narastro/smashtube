@@ -1,9 +1,9 @@
 extends base
 include mixins/video
 
-block content 
-    h2 Welcome to Trending Videos! 
-    each video in videos
-        +video(video)
-    else
-        li sorry Not found
+block content
+    div.video_grid
+        each video in videos
+            +video(video)
+        else
+            span.empty_message 비디오가 없습니다.
