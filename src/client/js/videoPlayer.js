@@ -101,19 +101,28 @@ const handleMouseLeave = () => {
   controlTimeout = setTimeout(hideControls, 3000);
 };
 
-const handlePressSpaceBar = (event) => {
+const handlePressKey = (event) => {
   if (event.code === "Space") {
     handlePlayClick();
   }
+  if (event.code === "KeyF") {
+    handleFullscreen();
+  }
 };
 
-document.addEventListener("keyup", handlePressSpaceBar);
+const handleEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, { method: "POST" });
+};
+
+document.addEventListener("keyup", handlePressKey);
 playBtnIcon.addEventListener("click", handlePlayClick);
 muteBtnIcon.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetaData);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("click", handlePlayClick);
+video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
