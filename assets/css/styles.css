@@ -332,12 +332,12 @@ input[type=submit],
   border: 0px solid #000000;
 }
 #videoContainer .videoControls input[type=range]::-webkit-slider-thumb {
-  box-shadow: -100vw 0 0 100vw #3da5e1;
+  box-shadow: -100vw 0 0 100vw #00a8ff;
   border: 0px solid #000000;
   height: 15px;
   width: 15px;
   border-radius: 5px;
-  background: #0984e3;
+  background: #00a8ff;
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -4.5px;
@@ -360,7 +360,7 @@ input[type=submit],
   height: 15px;
   width: 15px;
   border-radius: 5px;
-  background: #0984e3;
+  background: #00a8ff;
   cursor: pointer;
 }
 #videoContainer .videoControls input[type=range]::-ms-track {
@@ -373,7 +373,7 @@ input[type=submit],
   color: transparent;
 }
 #videoContainer .videoControls input[type=range]::-ms-fill-lower {
-  background: #3da5e1;
+  background: #00a8ff;
   border: 0px solid #000000;
   border-radius: 42px;
   box-shadow: 1px 1px 1px #50555c;
@@ -391,7 +391,7 @@ input[type=submit],
   height: 15px;
   width: 15px;
   border-radius: 10px;
-  background: #0984e3;
+  background: #00a8ff;
   cursor: pointer;
 }
 #videoContainer .videoControls input[type=range]:focus::-ms-fill-lower {
