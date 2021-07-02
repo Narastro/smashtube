@@ -4,7 +4,7 @@ include mixins/video
 block content 
     h4 Update Video
     form(method="POST")
-        input(name="title",placeholder="Title",required,type="text",maxlength="80",value=video.title)
-        input(name="description",placeholder="Description",required,type="text",maxlength="140",value=video.description)
-        input(name="hashtags",placeholder="Hashtags, seperated by comma.",required,type="text",value=video.hashtags.join())
-        input(type="submit",value="Upload Video")
+        input(name="title",placeholder="제목",required,type="text",maxlength="80",value=video.title)
+        input(name="description",placeholder="설명",required,type="text",maxlength="140",value=video.description)
+        input(name="hashtags",placeholder="해시태크(콤마로 구분)",required,type="text",value=video.hashtags.join())
+        input(type="submit",value="업로드")
