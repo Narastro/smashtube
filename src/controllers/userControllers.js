@@ -110,6 +110,7 @@ export const postEdit = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
+  req.flash("info", "Bye Bye");
   return res.redirect("/");
 };
 
@@ -205,6 +206,7 @@ export const finishGithubLogin = async (req, res) => {
 
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "소셜계정이므로 비밀번호를 바꿀 수 없습니다.");
     return res.redirect("/");
   }
   return res.render("change-password", { pageTitle: "Change Password!" });
@@ -234,5 +236,6 @@ export const postChangePassword = async (req, res) => {
   }
   user.password = newPassword;
   await user.save(); // 이걸 하는 이유는 Model에서 pre save 함수를 트리거하기 위함이다
+  req.flash("info", "정상적으로 변경되었습니다!");
   return res.redirect("/users/logout");
 };

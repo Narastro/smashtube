@@ -20,7 +20,10 @@ const handleDownload = async () => {
   actionBtn.removeEventListener("click", handleDownload);
   actionBtn.innerText = "Transcoding...";
   actionBtn.disabled = true;
-  const ffmpeg = createFFmpeg({ log: true });
+  const ffmpeg = createFFmpeg({
+    corePath: "https://unpkg.com/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js",
+    log: true,
+  });
   await ffmpeg.load();
   ffmpeg.FS("writeFile", files.input, await fetchFile(videoFile));
   await ffmpeg.run("-i", files.input, "-r", "60", files.output);

@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./router/rootRouter";
 import userRouter from "./router/userRouter";
@@ -36,6 +37,7 @@ app.use(
   })
 );
 
+app.use(flash());
 app.use(localsmiddleware);
 app.use("/", rootRouter);
 app.use("/users", userRouter);
