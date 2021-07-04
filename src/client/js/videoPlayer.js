@@ -119,7 +119,7 @@ document.addEventListener("keyup", handlePressKey);
 playBtnIcon.addEventListener("click", handlePlayClick);
 muteBtnIcon.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadedmetadata", handleLoadedMetaData);
+video.addEventListener("loadeddata", handleLoadedMetaData);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("click", handlePlayClick);
 video.addEventListener("ended", handleEnded);

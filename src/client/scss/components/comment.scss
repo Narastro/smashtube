@@ -27,15 +27,6 @@
   margin: 0 auto;
   margin-top: 20px;
   .video__comment {
-    .video__comment-info {
-      span {
-        margin-right: 10px;
-        font-size: 13px;
-        &:last-child {
-          font-size: 10px;
-        }
-      }
-    }
     position: relative;
     span {
       line-height: 130%;
@@ -47,6 +38,15 @@
     i {
       font-size: 15px;
       margin-right: 10px;
+    }
+  }
+  .video__comment-info {
+    span {
+      margin-right: 10px;
+      font-size: 13px;
+      &:last-child {
+        font-size: 10px;
+      }
     }
   }
   .deleteBtn {
