@@ -102,10 +102,10 @@ const handleMouseLeave = () => {
 };
 
 const handlePressKey = (event) => {
-  if (event.code === "Space") {
+  if (event.code === "Space" && event.target === document.body) {
     handlePlayClick();
   }
-  if (event.code === "KeyF") {
+  if (event.code === "KeyF" && event.target === document.body) {
     handleFullscreen();
   }
 };

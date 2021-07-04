@@ -41,9 +41,11 @@ block content
     div.video__comments
         ul
             each comment in video.comments.reverse()
-                li.video__comment
+                li.video__comment.commentContainer(data-id=comment._id)
                     i.far.fa-comment-alt
                     span #{comment.text}
+                    if String(comment.owner._id) ===String(loggedInUser._id)
+                        span.deleteBtn ❌
     
 
 block scripts 
