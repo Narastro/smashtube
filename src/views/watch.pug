@@ -22,30 +22,43 @@ block content
                     i.fas.fa-expand
  
     div.video__data
+        small.video__hashtags=video.hashtags
+        span.video__title=video.title
         p.video__description=video.description
-        small.vidoe__createAt=video.createAt
+        div.video__info
+            small.video__createdAt=video.createAt
+            small.video__views 시청수 #{video.meta.views}회
         small.video__owner Upload by 
             a(href=`/users/${video.owner.id}`)=video.owner.name
 
-    if String(video.owner._id) ===String(loggedInUser._id)
-        a(href=`${video.id}/edit`) 비디오 수정하기 &rarr;
-        br
-        a(href=`${video.id}/delete`) 삭제하기 &rarr;
+    div.video__edit
+        if String(video.owner._id) ===String(loggedInUser._id)
+            a(href=`${video.id}/edit`)
+                i.far.fa-edit
+            a(href=`${video.id}/delete`)
+                i.fas.fa-trash-alt
 
+    hr
     if loggedIn
         div.video__add-comments
             form.video__comment-form#commentForm
-                textarea(cols="30", rows="10", placeholder="댓글을 입력하세요")
-                button 댓글 달기
+                textarea(placeholder="댓글을 입력하세요")
+                i.far.fa-paper-plane#submitBtn
 
+    
     div.video__comments
         ul
             each comment in video.comments.reverse()
-                li.video__comment.commentContainer(data-id=comment._id)
-                    i.far.fa-comment-alt
-                    span #{comment.text}
+                li.video__comment.commentContainer(data-id=comment._id,data-name=comment.createUser)
+                    div.video__comment-info
+                        span #{comment.createUser}
+                        span #{comment.createAt}
+                    div.video__comment-content
+                        i.far.fa-comment-alt
+                        span #{comment.text}
                     if String(comment.owner._id) ===String(loggedInUser._id)
                         span.deleteBtn ❌
+                    
     
 
 block scripts 

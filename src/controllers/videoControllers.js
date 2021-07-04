@@ -62,7 +62,7 @@ export const postEdit = async (req, res) => {
     user: { _id },
   } = req.session;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const video = await Video.findById({ _id: id });
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
@@ -70,13 +70,16 @@ export const postEdit = async (req, res) => {
     req.flash("error", "비디오 수정 권한이 없습니다.");
     return res.status(403).redirect("/");
   }
+  const offset = new Date().getTimezoneOffset() * 60000;
+  const createAt = new Date(Date.now() - offset).toISOString();
   await Video.findByIdAndUpdate(id, {
     title,
     description,
+    createAt: createAt.substr(0, 10) + " / " + createAt.substr(11, 5),
     hashtags: Video.formatHashtags(hashtags),
   });
   req.flash("success", "성공적으로 비디오를 수정했습니다.");
-  return res.redirect(`/videos/${id}`);
+  return res.status(200).redirect(`/videos/${id}`);
 };
 
 export const getUpload = (req, res) => {
@@ -92,13 +95,15 @@ export const postUpload = async (req, res) => {
     body: { title, description, hashtags },
   } = req;
   try {
+    const offset = new Date().getTimezoneOffset() * 60000;
+    const createAt = new Date(Date.now() - offset).toISOString();
     const newVideo = await Video.create({
       title,
       description,
       fileUrl: video[0].path,
       thumbUrl: thumb[0].path,
       owner: _id,
-      createAt: Date.now(),
+      createAt: createAt.substr(0, 10) + " / " + createAt.substr(11, 5),
       hashtags: Video.formatHashtags(hashtags),
     });
     const user = await User.findById(_id);
@@ -150,14 +155,20 @@ export const createComment = async (req, res) => {
   if (!video) {
     return res.sendStatus(404);
   }
+  const offset = new Date().getTimezoneOffset() * 60000;
+  const createAt = new Date(Date.now() - offset).toISOString();
   const comment = await Comment.create({
     text,
+    createUser: String(user.username),
+    createAt: createAt.substr(0, 10),
     owner: user._id,
     video: id,
   });
   video.comments.push(comment._id);
   video.save();
-  return res.status(201).json({ newCommentId: comment._id });
+  return res
+    .status(201)
+    .json({ newCommentId: comment._id, username: comment.createUser });
 };
 
 export const deleteComment = async (req, res) => {

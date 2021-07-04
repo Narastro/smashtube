@@ -1,13 +1,28 @@
 const commentContainer = document.querySelector(".commentContainer");
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
+const submitBtn = form.querySelector("i");
 const deleteBtns = document.querySelectorAll(".deleteBtn");
 
-const addComment = (text, id) => {
+const addComment = (text, id, name) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
+  newComment.dataset.name = name;
   newComment.className = "video__comment";
+
+  const info = document.createElement("div");
+  const span1 = document.createElement("span");
+  const span2 = document.createElement("span");
+  span1.innerText = name;
+  const offset = new Date().getTimezoneOffset() * 60000;
+  const createAt = new Date(Date.now() - offset).toISOString();
+  span2.innerText = createAt.substr(0, 10);
+  info.appendChild(span1);
+  info.appendChild(span2);
+  newComment.appendChild(info);
+
+  const content = document.createElement("div");
   const icon = document.createElement("i");
   const span = document.createElement("span");
   const del = document.createElement("span");
@@ -15,8 +30,9 @@ const addComment = (text, id) => {
   span.innerText = `${text}`;
   del.innerText = "❌";
   del.className = "deleteBtn";
-  newComment.appendChild(icon);
-  newComment.appendChild(span);
+  content.appendChild(icon);
+  content.appendChild(span);
+  newComment.appendChild(content);
   newComment.appendChild(del);
   videoComments.prepend(newComment);
 
@@ -40,8 +56,8 @@ const handleSubmit = async (event) => {
   });
   textarea.value = "";
   if (response.status === 201) {
-    const { newCommentId } = await response.json();
-    addComment(text, newCommentId);
+    const { newCommentId, username } = await response.json();
+    addComment(text, newCommentId, username);
   }
 };
 
@@ -49,7 +65,6 @@ const handleDelete = async (e) => {
   e.preventDefault();
   const targetComment = e.target.parentElement;
   const { id } = targetComment.dataset;
-  const videoId = videoContainer.dataset.id;
   const res = await fetch(`/api/comments/${id}`, {
     method: "DELETE",
   });
@@ -63,5 +78,5 @@ deleteBtns.forEach((btn) => {
 });
 
 if (form) {
-  form.addEventListener("submit", handleSubmit);
+  submitBtn.addEventListener("click", handleSubmit);
 }

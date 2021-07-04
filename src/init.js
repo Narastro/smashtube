@@ -1,9 +1,11 @@
+import "regenerator-runtime";
 import "dotenv/config";
 import "./db";
 import Video from "./models/Video";
 import User from "./models/User";
 import Comment from "./models/Comment";
 import app from "./server";
+import { runtime } from "webpack";
 
 const PORT = 4000;
 

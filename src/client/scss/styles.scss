@@ -10,6 +10,7 @@
 @import "./components/forms.scss";
 @import "./components/social-login.scss";
 @import "./components/video-player.scss";
+@import "./components/comment.scss";
 
 // Screens
 @import "./screens/search.scss";
@@ -71,4 +72,8 @@ main {
   &.success {
     background-color: $blue;
   }
+}
+
+hr {
+  border: 0.1px solid gray;
 }

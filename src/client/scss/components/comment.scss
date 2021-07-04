@@ -1,0 +1,61 @@
+.video__add-comments {
+  .video__comment-form {
+    display: flex;
+    margin: 0;
+    margin-top: 20px;
+    max-width: 100%;
+    max-height: 15px;
+    justify-content: space-between;
+    align-items: center;
+    textarea {
+      all: unset;
+      width: 90%;
+      height: 80%;
+      line-height: 130%;
+    }
+    i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+}
+
+.video__comments {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+  .video__comment {
+    .video__comment-info {
+      span {
+        margin-right: 10px;
+        font-size: 13px;
+        &:last-child {
+          font-size: 10px;
+        }
+      }
+    }
+    position: relative;
+    span {
+      line-height: 130%;
+      font-size: 16px;
+    }
+    padding: 10px;
+    color: white;
+    margin-bottom: 10px;
+    i {
+      font-size: 15px;
+      margin-right: 10px;
+    }
+  }
+  .deleteBtn {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    margin-left: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    opacity: 0.2;
+  }
+}
