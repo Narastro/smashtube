@@ -7,7 +7,7 @@ import Comment from "./models/Comment";
 import app from "./server";
 import { runtime } from "webpack";
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 const handleListening = () =>
   console.log(`✅ Server Listening on : http://localhost:${PORT} 🚀`);
