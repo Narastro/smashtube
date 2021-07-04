@@ -94,14 +94,15 @@ export const postUpload = async (req, res) => {
     files: { video, thumb },
     body: { title, description, hashtags },
   } = req;
+  const isHeroku = process.env.NODE_ENV === "production";
   try {
     const offset = new Date().getTimezoneOffset() * 60000;
     const createAt = new Date(Date.now() - offset).toISOString();
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: video[0].location,
-      thumbUrl: thumb[0].location,
+      fileUrl: isHeroku ? video[0].location : video[0].path,
+      thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
       owner: _id,
       createAt: createAt.substr(0, 10) + " / " + createAt.substr(11, 5),
       hashtags: Video.formatHashtags(hashtags),
