@@ -29,6 +29,7 @@
     "multer": "^1.4.2",
     "node-fetch": "^2.6.1",
     "pug": "^3.0.2",
+    "webpack": "^5.39.1",
     "regenerator-runtime": "^0.13.7"
   },
   "scripts": {
@@ -51,7 +52,6 @@
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.39.1",
     "webpack-cli": "^4.7.2"
   }
 }
