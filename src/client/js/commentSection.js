@@ -15,6 +15,7 @@ const addComment = (text, id, name) => {
   const span1 = document.createElement("span");
   const span2 = document.createElement("span");
   span1.innerText = name;
+  info.className = "video__comment-info";
   const offset = new Date().getTimezoneOffset() * 60000;
   const createAt = new Date(Date.now() - offset).toISOString();
   span2.innerText = createAt.substr(0, 10);
@@ -30,6 +31,7 @@ const addComment = (text, id, name) => {
   span.innerText = `${text}`;
   del.innerText = "❌";
   del.className = "deleteBtn";
+  content.className = "video__comment-content";
   content.appendChild(icon);
   content.appendChild(span);
   newComment.appendChild(content);

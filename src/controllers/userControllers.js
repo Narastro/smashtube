@@ -29,6 +29,7 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
+    req.flash("success", "성공적으로 가입하셨습니다.");
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
@@ -58,6 +59,7 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password. ",
     });
   }
+  req.flash("success", "성공적으로 로그인하였습니다.");
   req.session.loggedIn = true;
   req.session.user = user;
   return res.redirect("/");
@@ -105,12 +107,14 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updateUser;
+  req.flash("success", "성공적으로 수정하였습니다.");
   return res.redirect("/users/edit");
 };
 
 export const logout = (req, res) => {
   req.session.destroy();
   req.flash("info", "Bye Bye");
+  req.flash("success", "로그아웃하였습니다");
   return res.redirect("/");
 };
 
@@ -198,6 +202,7 @@ export const finishGithubLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash("success", "성공적으로 로그인 하였습니다.");
     return res.redirect("/");
   } else {
     return res.redirect("/login");

@@ -110,6 +110,7 @@ export const postUpload = async (req, res) => {
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
+    req.flash("success", "성공적으로 비디오를 업로드하였습니다.");
     return res.redirect("/");
   } catch (error) {
     res.status(400).render("upload", {
@@ -132,6 +133,7 @@ export const deleteVideo = async (req, res) => {
     return res.status(403).redirect("/");
   }
   await Video.findByIdAndDelete(id);
+  req.flash("info", "비디오를 삭제했습니다.");
   return res.redirect("/");
 };
 
