@@ -78,7 +78,7 @@ export const postEdit = async (req, res) => {
     createAt: createAt.substr(0, 10) + " / " + createAt.substr(11, 5),
     hashtags: Video.formatHashtags(hashtags),
   });
-  req.flash("success", "성공적으로 비디오를 수정했습니다.");
+  req.flash("success", "성공적으로 수정했습니다.");
   return res.status(200).redirect(`/videos/${id}`);
 };
 
@@ -110,7 +110,7 @@ export const postUpload = async (req, res) => {
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
-    req.flash("success", "성공적으로 비디오를 업로드하였습니다.");
+    req.flash("success", "성공적으로 업로드하였습니다.");
     return res.redirect("/");
   } catch (error) {
     res.status(400).render("upload", {

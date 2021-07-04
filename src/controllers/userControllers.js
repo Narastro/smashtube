@@ -29,7 +29,7 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
-    req.flash("success", "성공적으로 가입하셨습니다.");
+    req.flash("success", "가입이 완료되었습니다.");
     return res.redirect("/login");
   } catch (error) {
     return res.status(400).render("join", {
@@ -49,14 +49,14 @@ export const postLogin = async (req, res) => {
   if (!user) {
     return res.status(400).render("login", {
       pageTitle,
-      errorMessage: "An account with this username does not exist. ",
+      errorMessage: "유저ID가 존재하지 않습니다.",
     });
   }
   const ok = await bcrypt.compare(password, user.password);
   if (!ok) {
     return res.status(400).render("login", {
       pageTitle,
-      errorMessage: "Wrong password. ",
+      errorMessage: "잘못된 비밀번호입니다. ",
     });
   }
   req.flash("success", "성공적으로 로그인하였습니다.");
@@ -83,7 +83,7 @@ export const postEdit = async (req, res) => {
   if (sessionEmail !== email && emailExists) {
     return res.status(400).render("edit-profile", {
       pageTitle,
-      errorMessage: "This email is already taken.",
+      errorMessage: "이메일주소가 이미 사용중입니다",
     });
   }
 
@@ -91,7 +91,7 @@ export const postEdit = async (req, res) => {
   if (sessionUsername !== username && userExists) {
     return res.status(400).render("edit-profile", {
       pageTitle,
-      errorMessage: "This username is already taken.",
+      errorMessage: "유저ID가 이미 존재합니다.",
     });
   }
   const isHeroku = process.env.NODE_ENV === "production";
@@ -113,7 +113,6 @@ export const postEdit = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
-  req.flash("info", "Bye Bye");
   req.flash("success", "로그아웃하였습니다");
   return res.redirect("/");
 };
@@ -230,13 +229,13 @@ export const postChangePassword = async (req, res) => {
   if (!ok) {
     return res.status(400).render("users/change-password", {
       pageTitle: "Change Password",
-      errorMessage: "Current password is incorrect",
+      errorMessage: "비밀번호가 틀렸습니다",
     });
   }
   if (newPassword !== newPassword2) {
     return res.status(400).render("users/change-password", {
       pageTitle: "Change Password",
-      errorMessage: "The password does not match",
+      errorMessage: "비밀번호가 일치하지 않습니다.",
     });
   }
   user.password = newPassword;
