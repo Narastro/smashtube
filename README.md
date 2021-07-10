@@ -1,14 +1,44 @@
 # 🎬 Smashtube 
 동영상을 업로드하고 댓글을 달면서 소통할 수 있는 동영상 플랫폼
 
+
+
 > ⬇직접 확인해보세요!
 > 
 > [[구경하기](https://smashtube.herokuapp.com)]
 
 ## 목차(바로가기)
-- [개발 과정](#개발-과정)
 - [주요 기능](#주요-기능)
+- [개발 과정](#개발-과정)
 - [배운점](#배운점)
+
+## 주요 기능
+### 1. 동영상 CRUD
+- 동영상 및 썸네일 업로드
+- 동영상 보기
+- 동영상 정보(제목, 설명, 해시태크) 수정하기
+- 동영상 지우기 
+### 2. 동영상 필터(검색)
+- 제목을 기준으로 동영상 검색하기
+### 3. 회원가입
+- 회원가입
+- 로그인
+- 로그아웃
+### 4. 소셜 로그인(깃허브)
+- 깃허브로 로그인하기 (깃허브 로그인시 비밀번호 수정불가능하게 구현)
+### 5. 동영상 녹화 및 다운로드
+- 5초짜리 짧은 동영상을 직접 녹화하고 다운로드하기
+- 썸네일도 다운로드하기
+### 6. 비디오 플레이어
+- 재생, 일시정지, 무음
+- 상태바, 볼륨바 구현
+- F키로 전체화면, SpaceBar로 재생/일시정지 구현
+- 영상 시청 후 조회수 +1
+- 비디오 영상 길이 및 현재 시청 구간 보여주기
+### 7. 댓글
+- 실시간 댓글
+- 댓글 작성 시간
+- 댓글 지우기 
 
 ## 개발 과정
 ### 1. Set up (Babel, morgan, nodemon, Pug, Express...)
@@ -80,7 +110,7 @@
 - AWS (동영상 및 이미지 파일 저장소, Bucket)
 
 
-## 주요 기능
+
 ## 배운점
 
 한 두 문단으로 프로젝트 소개 글을 작성합니다.
@@ -92,50 +122,5 @@
 
 _더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
 
-## 개발 환경 설정
-
-모든 개발 의존성 설치 방법과 자동 테스트 슈트 실행 방법을 운영체제 별로 작성합니다.
-
-```sh
-make install
-npm test
 ```
 
-## 업데이트 내역
-
-* 0.2.1
-    * 수정: 문서 업데이트 (모듈 코드 동일)
-* 0.2.0
-    * 수정: `setDefaultXYZ()` 메서드 제거
-    * 추가: `init()` 메서드 추가
-* 0.1.1
-    * 버그 수정: `baz()` 메서드 호출 시 부팅되지 않는 현상 (@컨트리뷰터 감사합니다!)
-* 0.1.0
-    * 첫 출시
-    * 수정: `foo()` 메서드 네이밍을 `bar()`로 수정
-* 0.0.1
-    * 작업 진행 중
-<!-- 
-## 정보
-
-이름 – [@트위터 주소](https://twitter.com/dbader_org) – 이메일주소@example.com
-
-XYZ 라이센스를 준수하며 ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.
-
-[https://github.com/yourname/github-link](https://github.com/dbader/)
-
-## 기여 방법
-
-1. (<https://github.com/yourname/yourproject/fork>)을 포크합니다.
-2. (`git checkout -b feature/fooBar`) 명령어로 새 브랜치를 만드세요.
-3. (`git commit -am 'Add some fooBar'`) 명령어로 커밋하세요.
-4. (`git push origin feature/fooBar`) 명령어로 브랜치에 푸시하세요. 
-5. 풀리퀘스트를 보내주세요.
-
-<!-- Markdown link & img dfn's -->
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki -->
