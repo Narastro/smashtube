@@ -1,6 +1,25 @@
 # 🎬 Smashtube 
 동영상을 업로드하고 댓글을 달면서 소통할 수 있는 동영상 플랫폼
 
+---------------------
+
+
+<div>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/Pug-A86454?style=flat-square&logo=Pug&logoColor=white"/>
+<img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=Express&logoColor=white"/>
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"/>
+<img src="https://img.shields.io/badge/Webpack-8DD6F9?style=flat-square&logo=Webpack&logoColor=white"/>
+<img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"/>
+<img src="https://img.shields.io/badge/FFmpeg-007808?style=flat-square&logo=FFmpeg&logoColor=white"/>
+<img src="https://img.shields.io/badge/Amazon-AWS-232F3E?style=flat-square&logo=Amazon-AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/Heroku-430098?style=flat-square&logo=Heroku&logoColor=white"/>
+</div>
+
+
+
+-----------------
 
 
 > ⬇직접 확인해보세요!
@@ -24,18 +43,17 @@
 - 회원가입
 - 로그인
 - 로그아웃
-### 4. 소셜 로그인(깃허브)
-- 깃허브로 로그인하기 (깃허브 로그인시 비밀번호 수정불가능하게 구현)
-### 5. 동영상 녹화 및 다운로드
+- 깃허브로 로그인하기 구현(깃허브 로그인시 비밀번호 수정불가능하게 구현)
+### 4. 동영상 녹화 및 다운로드
 - 5초짜리 짧은 동영상을 직접 녹화하고 다운로드하기
 - 썸네일도 다운로드하기
-### 6. 비디오 플레이어
+### 5. 비디오 플레이어
 - 재생, 일시정지, 무음
 - 상태바, 볼륨바 구현
 - F키로 전체화면, SpaceBar로 재생/일시정지 구현
 - 영상 시청 후 조회수 +1
 - 비디오 영상 길이 및 현재 시청 구간 보여주기
-### 7. 댓글
+### 6. 댓글
 - 실시간 댓글
 - 댓글 작성 시간
 - 댓글 지우기 
@@ -113,14 +131,10 @@
 
 ## 배운점
 
-한 두 문단으로 프로젝트 소개 글을 작성합니다.
-
+...
 
 ## 사용 예제
 
 스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
 
-_더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
-
-```
 
