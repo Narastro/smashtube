@@ -7,17 +7,9 @@ import rootRouter from "./router/rootRouter";
 import userRouter from "./router/userRouter";
 import videoRouter from "./router/videoRouter";
 import apiRouter from "./router/apiRouter";
-import { localsmiddleware } from "./middlewares";
+import { localsmiddleware, privateMiddle } from "./middlewares";
 
 const app = express();
-
-const privateMiddle = (req, res, next) => {
-  const url = req.url;
-  if (url === "/protected") {
-    return res.send("<h1>Not Allowed</h1>");
-  }
-  next();
-};
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");

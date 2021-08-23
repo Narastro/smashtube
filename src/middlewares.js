@@ -23,6 +23,14 @@ const s3VideoUploader = multerS3({
 
 const isHeroku = process.env.NODE_ENV === "production";
 
+export const privateMiddle = (req, res, next) => {
+  const url = req.url;
+  if (url === "/protected") {
+    return res.send("<h1>Not Allowed</h1>");
+  }
+  next();
+};
+
 export const localsmiddleware = (req, res, next) => {
   res.locals.siteName = "Smashtube";
   res.locals.loggedIn = Boolean(req.session.loggedIn);
